@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mybatis.config.Dept">
+<!-- namespace는 select id 등 아이디가 겹치는걸 방지하기위해
+	 해당 패키지를 적으면 그 안의 네임들만 사용이 가능하게 해준다. -->
+<!-- SQL과 vo의 자동매핑(짝맞춤)을 시켜주는것 => mybatis -->
+<!-- DAO는 항상 있어야한다. (기술만 jdbc대신 mybatis를 쓰는것뿐)-->
+ <!--
+ 개발자는 mybatis를 이용할 경우 , 자바코드에서 쿼리문을 작성하지 않으며
+ 수많은 jdbc관련 코드 또한 작성할 필요가 없고 , 오직 쿼리문에만 집중하면 된다.
+ -->
+ 
+<!--모든 글 가져오기-->
+ <select id="selectAll" resultType="emp.model.Dept">
+ 	select * from dept order by deptno asc
+ </select>
+ 
+<!--한 건 가져오기 -->
+<select id="select" parameterType="int" resultType="emp.model.Dept">
+	select * from dept where deptno = #{deptno}
+</select>
+
+<!--글 등록 -->
+<insert id="insert" parameterType="emp.model.Dept">
+	insert into dept(dname,loc) values(#{dname},#{loc})
+</insert>
+
+<!--한 건 수정하기 -->
+<update id="update" parameterType="emp.model.Dept">
+	update dept set dname =#{dname} , loc=#{loc}
+	where deptno = #{deptno}
+	<!--반드시 #{}안에 vo에 쓴 매개변수명을 써야한다!-->
+</update>
+	
+<!--삭제하기 -->
+<delete id="delete" parameterType="int">
+	delete from dept where deptno = #{deptno}
+</delete>
+
+</mapper>
